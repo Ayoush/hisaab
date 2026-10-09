@@ -1,0 +1,56 @@
+name: Task
+description: A unit of work from the Intervues backlog
+title: "[Task] "
+labels: []
+body:
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      options:
+        - beginner
+        - advanced
+    validations:
+      required: true
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Tier
+      options:
+        - tier:docs
+        - tier:tests
+        - tier:tiny-feature
+        - tier:small-bug
+        - advanced
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: 3–5 checkable items. Start each with "- [ ]".
+      placeholder: |
+        - [ ] first criterion
+        - [ ] second criterion
+    validations:
+      required: true
+  - type: input
+    id: first-file
+    attributes:
+      label: First file to open
+      description: The single most important file to read before starting.
+    validations:
+      required: true
+  - type: input
+    id: skill
+    attributes:
+      label: Skill proved
+      description: e.g. "table-driven tests", "HTTP API design", "decimal math"
+    validations:
+      required: true
