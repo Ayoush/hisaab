@@ -1,0 +1,398 @@
+# hisaab — Intervues Lab task registry
+# AI planner reads this nightly to propose new issues.
+# Mirror every GitHub issue here.
+
+meta:
+  repo: Ayoush/hisaab
+  stack: TypeScript, Node 22, Vitest, Hono
+  unit_of_work: One GST scenario fixture + matching test
+
+units_of_work:
+  - kind: scenario
+    path: spec/scenarios/
+    registry: registry/scenarios.json
+    implemented:
+      - igst-18-standard
+      - cgst-sgst-18-intra
+    missing_examples:
+      - igst-sez-supply
+      - cgst-sgst-12-intra
+      - reverse-charge-rcm
+      - credit-note-intra
+      - cess-28-auto
+      - zero-rated-export
+      - composite-dealer
+
+tasks:
+  # ── BEGINNER TRACK ──────────────────────────────────────────
+
+  # tier:docs
+  - id: docs-place-of-supply
+    title: "Document intra-state vs inter-state in docs/place-of-supply.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: docs/place-of-supply.md
+    skill: technical writing
+    acceptance:
+      - Both intra-state and inter-state are defined with one example each
+      - Links to matching scenario ids
+      - No legal advice wording
+      - File is under 500 words
+
+  - id: docs-money
+    title: "Add paise-not-floats note to docs/money.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: docs/money.md
+    skill: technical writing
+    acceptance:
+      - Says integer paise explicitly
+      - Shows a 0.1 + 0.2 style floating-point failure
+      - Points to packages/core/src/money.ts
+
+  - id: docs-contributing-scenario
+    title: "Write contributor path for a new scenario in CONTRIBUTING.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: CONTRIBUTING.md
+    skill: technical writing
+    acceptance:
+      - Names registry/scenarios.json
+      - Names the test command (make test)
+      - Says synthetic data only
+
+  - id: docs-rounding
+    title: "Document half-up vs banker's rounding in docs/rounding.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: docs/rounding.md
+    skill: technical writing
+    acceptance:
+      - At least one numeric example
+      - Names the roundHalfUp function
+      - Says which scenarios use it
+
+  - id: docs-cli-readme
+    title: "Add CLI README section in packages/cli/README.md"
+    track: beginner
+    tier: docs
+    status: open
+    first_file: packages/cli/README.md
+    skill: technical writing
+    acceptance:
+      - One copy-paste command
+      - Shows expected stdout
+      - Notes no network required
+
+  # tier:tests
+  - id: test-intra-split-18
+    title: "Table-test 18% intra-state split in packages/core/src/split.test.ts"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: packages/core/src/split.test.ts
+    skill: table-driven tests
+    acceptance:
+      - 10000 paise taxable → 900 CGST + 900 SGST
+      - Zero-rated stays zero
+      - Assertion message includes scenario id
+
+  - id: test-negative-quantity
+    title: "Reject negative quantity in packages/core/src/validate.test.ts"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: packages/core/src/validate.test.ts
+    skill: typed error handling
+    acceptance:
+      - Throws or returns a typed error
+      - Does not return a total
+      - Message names the field 'quantity'
+
+  - id: test-round-half-up
+    title: "Lock half-up rounding on 1-paise remainder in packages/core/src/round.test.ts"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: packages/core/src/round.test.ts
+    skill: golden-file testing
+    acceptance:
+      - 0.5 paise rounds away from zero as specified
+      - Fixture is in fixtures/golden/
+      - Test reads the fixture, not a magic number
+
+  - id: test-api-unknown-state
+    title: "API returns 400 for unknown state code in packages/api/src/quote.test.ts"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: packages/api/src/quote.test.ts
+    skill: HTTP API testing
+    acceptance:
+      - Status is 400
+      - Body has a 'code' field
+      - No stack trace in the response body
+
+  - id: test-cli-missing-scenario
+    title: "CLI --scenario exits 2 on missing id in packages/cli/src/main.test.ts"
+    track: beginner
+    tier: tests
+    status: open
+    first_file: packages/cli/src/main.test.ts
+    skill: CLI testing
+    acceptance:
+      - Exit code is 2
+      - stderr mentions the id
+      - stdout is empty
+
+  # tier:tiny-feature
+  - id: feat-sez-scenario
+    title: "Add scenario igst-sez-supply under spec/scenarios/igst-sez-supply.json"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: spec/scenarios/
+    skill: GST domain knowledge, JSON fixture authoring
+    acceptance:
+      - registry/scenarios.json status flips to done
+      - Golden total matches the spec
+      - Unit test loads that file
+
+  - id: feat-cess-field
+    title: "Add cess field to the quote result in packages/core/src/quote.ts"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: packages/core/src/quote.ts
+    skill: TypeScript types, decimal math
+    acceptance:
+      - cess is paise (integer)
+      - Omitted cess means 0
+      - One existing scenario still passes unchanged
+
+  - id: feat-cli-list-missing
+    title: "Add hisaab list --status missing in packages/cli/src/list.ts"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: packages/cli/src/list.ts
+    skill: CLI flags, JSON parsing
+    acceptance:
+      - Reads registry/scenarios.json
+      - Prints scenario ids only
+      - Exits 0 even when list is empty
+
+  - id: feat-hsn-chapter99
+    title: "Add HSN prefix lookup for chapter 99 in packages/core/src/hsn.ts"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: packages/core/src/hsn.ts
+    skill: lookup tables, TypeScript
+    acceptance:
+      - Known prefix returns a label string
+      - Unknown prefix returns null
+      - No network call
+
+  - id: feat-credit-note
+    title: "Add a credit-note scenario that negates tax in spec/scenarios/credit-note-intra.json"
+    track: beginner
+    tier: tiny-feature
+    status: open
+    first_file: spec/scenarios/
+    skill: GST domain knowledge, negative paise
+    acceptance:
+      - Totals are negative paise
+      - Original invoice id is recorded in the fixture
+      - CGST + SGST split still balances
+
+  # tier:small-bug
+  - id: bug-cgst-sgst-drift
+    title: "Fix CGST/SGST drift on odd paise in packages/core/src/split.ts"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: packages/core/src/split.ts
+    skill: integer math, rounding
+    acceptance:
+      - 1 paise remainder goes to CGST as documented
+      - New fixture added in fixtures/golden/
+      - Old fixtures unchanged
+
+  - id: bug-delhi-kind
+    title: "Fix state code 07 (Delhi) labeled as state kind in packages/core/src/states.ts"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: packages/core/src/states.ts
+    skill: data correctness, TypeScript
+    acceptance:
+      - kind is 'ut' for 07
+      - IGST rule still applies across the border
+      - docs mention UT
+
+  - id: bug-cli-json-parse
+    title: "Fix CLI swallowing JSON parse errors in packages/cli/src/main.ts"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: packages/cli/src/main.ts
+    skill: error handling, CLI
+    acceptance:
+      - Invalid scenario file exits 2
+      - Message includes the file path
+      - No unhandled promise rejection
+
+  - id: bug-api-rate-coerce
+    title: "Fix API treating '18' and 18 as different rates in packages/api/src/quote.ts"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: packages/api/src/quote.ts
+    skill: HTTP API, type coercion
+    acceptance:
+      - Both string '18' and number 18 are accepted
+      - 18.5 is rejected unless the spec allows it
+      - Test covers both inputs
+
+  - id: bug-registry-orphan
+    title: "Fix registry loader ignoring files not in registry/scenarios.json"
+    track: beginner
+    tier: small-bug
+    status: open
+    first_file: packages/core/src/registry.ts
+    skill: file system, validation
+    acceptance:
+      - Orphan fixture fails the test suite
+      - Error message names the file
+      - Documented in CONTRIBUTING.md
+
+  # ── ADVANCED TRACK ───────────────────────────────────────────
+
+  - id: adv-reverse-charge
+    title: "Implement reverse-charge mechanism (RCM) as a scenario type"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: packages/core/src/quote.ts
+    skill: GST law, TypeScript design
+    acceptance:
+      - RCM flag on the quote input
+      - Tax liability shifts to buyer
+      - At least 2 scenarios added
+      - Existing tests pass
+
+  - id: adv-multi-rate-invoice
+    title: "Support multi-rate invoices (multiple line items)"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: packages/core/src/quote.ts
+    skill: API design, TypeScript generics
+    acceptance:
+      - Input accepts an array of line items
+      - Each line item can have a different rate
+      - Total is sum of per-item taxes, rounded
+      - Two scenarios added
+
+  - id: adv-hono-openapi
+    title: "Add OpenAPI/Swagger schema for the Hono API"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: packages/api/src/index.ts
+    skill: OpenAPI, Hono, API documentation
+    acceptance:
+      - GET /openapi.json returns a valid schema
+      - Schema covers /quote request and response
+      - CI validates the schema
+
+  - id: adv-scenario-validator
+    title: "Add a JSON Schema validator for spec/scenarios/ files"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: spec/scenarios/
+    skill: JSON Schema, tooling
+    acceptance:
+      - Invalid scenario fails CI
+      - Missing required fields named in error
+      - Valid scenarios pass without noise
+
+  - id: adv-cess-slab
+    title: "Implement cess slabs (e.g. 28% + 22% cess + ₹400/unit)"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: packages/core/src/split.ts
+    skill: GST law, complex calculations
+    acceptance:
+      - Cess can be percent and/or specific amount
+      - Scenario for chapter 24 tobacco added
+      - Existing cess=0 scenarios unchanged
+
+  - id: adv-planner-cli
+    title: "Build an AI planner CLI that reads registry and proposes next issues"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: registry/scenarios.json
+    skill: CLI design, AI API integration
+    acceptance:
+      - Reads registry/scenarios.json
+      - Lists missing scenarios with their tier hints
+      - Outputs a markdown list of proposed issues
+      - No network required except for optional AI endpoint
+
+  - id: adv-perf-benchmark
+    title: "Benchmark quote() on 10,000 line items and document throughput"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: packages/core/src/quote.ts
+    skill: performance testing, Node.js
+    acceptance:
+      - Benchmark script in scripts/bench.ts
+      - Results documented in docs/performance.md
+      - No regressions introduced
+
+  - id: adv-sez-full
+    title: "Full SEZ supply implementation (zero-rated, LUT, no IGST)"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: packages/core/src/quote.ts
+    skill: GST law, TypeScript
+    acceptance:
+      - SEZ flag triggers zero IGST
+      - LUT reference optional field
+      - 3 scenarios (SEZ unit, SEZ developer, export)
+
+  - id: adv-composite-dealer
+    title: "Add composite dealer scenario (flat rate, no ITC)"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: spec/scenarios/
+    skill: GST law, domain modeling
+    acceptance:
+      - Composite flag on quote input
+      - Tax is flat %, no CGST/SGST breakdown
+      - Scenario added
+      - Docs updated
+
+  - id: adv-ci-scenario-coverage
+    title: "CI check that every scenario in registry has a test"
+    track: advanced
+    tier: advanced
+    status: open
+    first_file: .github/workflows/ci.yml
+    skill: CI/CD, tooling
+    acceptance:
+      - CI fails if registry has done scenario with no test
+      - Error names the missing scenario id
+      - Runs in under 5 seconds

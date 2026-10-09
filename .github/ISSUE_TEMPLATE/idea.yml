@@ -1,0 +1,18 @@
+name: Idea
+description: A suggestion or new scenario to add
+title: "[Idea] "
+labels: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Idea
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this matters
+      description: Is there a GST notification, edge case, or contributor request behind this?
+    validations:
+      required: true
