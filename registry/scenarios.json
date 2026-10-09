@@ -1,0 +1,46 @@
+{
+  "scenarios": [
+    {
+      "id": "igst-18-standard",
+      "status": "done",
+      "tier": "tests",
+      "description": "18% IGST inter-state, MH seller DL buyer"
+    },
+    {
+      "id": "cgst-sgst-18-intra",
+      "status": "done",
+      "tier": "tests",
+      "description": "18% CGST+SGST intra-state, both MH"
+    },
+    {
+      "id": "igst-sez-supply",
+      "status": "missing",
+      "tier": "tiny-feature",
+      "description": "IGST zero-rated SEZ supply"
+    },
+    {
+      "id": "credit-note-intra",
+      "status": "missing",
+      "tier": "tiny-feature",
+      "description": "Credit note that negates intra-state tax"
+    },
+    {
+      "id": "cess-28-auto",
+      "status": "missing",
+      "tier": "advanced",
+      "description": "28% GST + 22% cess on automobiles"
+    },
+    {
+      "id": "reverse-charge-rcm",
+      "status": "missing",
+      "tier": "advanced",
+      "description": "Reverse charge mechanism: liability shifts to buyer"
+    },
+    {
+      "id": "round-half-up-odd",
+      "status": "done",
+      "tier": "tests",
+      "description": "1-paise remainder goes to CGST"
+    }
+  ]
+}
