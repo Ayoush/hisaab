@@ -1,0 +1,14 @@
+{
+  "id": "igst-18-standard",
+  "description": "18% IGST — inter-state supply, seller in Maharashtra, buyer in Delhi",
+  "sellerState": "27",
+  "buyerState": "07",
+  "hsn": "8471",
+  "ratePercent": 18,
+  "taxableAmountPaise": 10000,
+  "expectedCgstPaise": 0,
+  "expectedSgstPaise": 0,
+  "expectedIgstPaise": 1800,
+  "expectedCessPaise": 0,
+  "expectedTotalPaise": 11800
+}

@@ -1,0 +1,14 @@
+{
+  "id": "cgst-sgst-18-intra",
+  "description": "18% intra-state supply — seller and buyer both in Maharashtra",
+  "sellerState": "27",
+  "buyerState": "27",
+  "hsn": "8471",
+  "ratePercent": 18,
+  "taxableAmountPaise": 10000,
+  "expectedCgstPaise": 900,
+  "expectedSgstPaise": 900,
+  "expectedIgstPaise": 0,
+  "expectedCessPaise": 0,
+  "expectedTotalPaise": 11800
+}

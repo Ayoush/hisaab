@@ -1,0 +1,30 @@
+name: Bug
+description: Something is broken
+title: "[Bug] "
+labels: []
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: Minimal repro steps or a failing test.
+    validations:
+      required: true
+  - type: input
+    id: file
+    attributes:
+      label: File(s) involved
+    validations:
+      required: false
