@@ -4,11 +4,6 @@ import { describe, it, expect } from 'vitest';
 // Integration tests for the CLI binary require tsx or a compiled binary;
 // see packages/cli/README.md for manual testing instructions.
 
-import { fileURLToPath } from 'url';
-import { join, dirname } from 'path';
-import { writeFileSync, mkdirSync } from 'fs';
-import { tmpdir } from 'os';
-import { readFileSync } from 'fs';
 
 describe('list scenarios', () => {
   it('filters by status when requested', () => {
