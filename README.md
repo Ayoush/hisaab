@@ -4,6 +4,8 @@
 
 **Offline · Fixture-driven · No GSTN login · MIT**
 
+New to GST terms? See the [glossary](docs/glossary.md).
+
 [![CI](https://github.com/Ayoush/hisaab/actions/workflows/ci.yml/badge.svg)](https://github.com/Ayoush/hisaab/actions/workflows/ci.yml)
 
 ---
@@ -48,6 +50,7 @@ registry/
 fixtures/
   golden/             # Expected JSON for golden tests
 docs/
+  glossary.md         # One-line definitions of GST terms
   money.md            # Why paise, not floats
   rounding.md         # Half-up vs banker's rounding
   place-of-supply.md  # Intra-state vs inter-state
