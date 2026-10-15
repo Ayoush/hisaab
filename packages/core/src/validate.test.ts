@@ -25,4 +25,23 @@ describe('validateLineItem', () => {
     const errors = validateLineItem({ quantity: 1, ratePercent: 150 });
     expect(errors.some((e) => e.code === 'INVALID_RATE')).toBe(true);
   });
+
+  it('returns ZERO_QUANTITY for zero quantity', () => {
+    const errors = validateLineItem({ quantity: 0, ratePercent: 18 });
+    expect(errors).toHaveLength(1);
+    expect(errors[0]!.code).toBe('ZERO_QUANTITY');
+    expect(errors[0]!.field).toBe('quantity');
+  });
+
+  it('positive passes, zero fails, negative fails', () => {
+    expect(validateLineItem({ quantity: 1, ratePercent: 18 })).toHaveLength(0);
+    expect(
+      validateLineItem({ quantity: 0, ratePercent: 18 }).some((e) => e.code === 'ZERO_QUANTITY'),
+    ).toBe(true);
+    expect(
+      validateLineItem({ quantity: -1, ratePercent: 18 }).some(
+        (e) => e.code === 'NEGATIVE_QUANTITY',
+      ),
+    ).toBe(true);
+  });
 });
