@@ -6,7 +6,7 @@ install:
 	pnpm install
 
 test:
-	pnpm test --run
+	pnpm test
 
 lint:
 	pnpm lint

@@ -37,3 +37,12 @@ pnpm --filter @hisaab/cli tsx src/main.ts list --status missing
 | 0 | Success |
 | 1 | Runtime error (e.g. unknown state) |
 | 2 | Usage error (e.g. missing scenario id, invalid JSON) |
+### 1. List all scenarios
+```bash
+pnpm --filter @hisaab/cli exec tsx src/main.ts list
+[]
+pnpm --filter @hisaab/cli exec tsx src/main.ts list --status missing
+[]
+pnpm --filter @hisaab/cli exec tsx src/main.ts --scenario unknown-scenario-id
+Error: Scenario not found
+
