@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import { quote, paise } from '@hisaab/core';
 import { listScenarios } from './list.js';
+import { scenarioFileError } from './errors.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -29,12 +30,9 @@ if (args[0] === '--scenario') {
   try {
     scenario = JSON.parse(readFileSync(scenarioPath, 'utf-8')) as Record<string, unknown>;
   } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
-      process.stderr.write(`Scenario not found: ${scenarioId}\n`);
-    } else {
-      process.stderr.write(`Failed to parse ${scenarioPath}: ${String(err)}\n`);
-    }
-    process.exit(2);
+    const { message, exitCode } = scenarioFileError(err, scenarioId, scenarioPath);
+    process.stderr.write(message);
+    process.exit(exitCode);
   }
 
   const result = quote({
