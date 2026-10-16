@@ -3,6 +3,8 @@ export type { Paise } from './money.js';
 export { roundHalfUp, roundHalfToEven } from './round.js';
 export { split } from './split.js';
 export type { TaxSplit } from './split.js';
+export { reverseCalculate } from './reverse.js';
+export type { ReverseTaxResult } from './reverse.js';
 export { validateLineItem } from './validate.js';
 export type { ValidationError } from './validate.js';
 export { lookupState, isIntraState } from './states.js';
