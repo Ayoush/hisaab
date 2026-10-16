@@ -22,3 +22,22 @@ describe('states — UT kinds', () => {
     expect(lookupState('ZZ')).toBeNull();
   });
 });
+
+describe('lookupState — full registry sweep', () => {
+  it('every registered code resolves with a valid kind', () => {
+    // GST codes 01–38 minus unassigned 25 (merged into 26)
+    expect(STATES.size).toBe(37);
+    for (const [code, info] of STATES) {
+      expect(lookupState(code)).toEqual(info);
+      expect(['state', 'ut']).toContain(info.kind);
+    }
+  });
+
+  it('all 8 UTs are exactly the UT set', () => {
+    const uts = [...STATES.values()]
+      .filter((s) => s.kind === 'ut')
+      .map((s) => s.code)
+      .sort();
+    expect(uts).toEqual(['01', '04', '07', '26', '31', '34', '35', '38']);
+  });
+});
