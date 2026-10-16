@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import { quote, paise } from '@hisaab/core';
 import { listScenarios } from './list.js';
+import { toJsonPayload, toHumanLines } from './format.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
@@ -17,12 +18,14 @@ if (args[0] === 'list') {
   process.exit(0);
 }
 
-if (args[0] === '--scenario') {
-  const scenarioId = args[1];
-  if (!scenarioId) {
-    process.stderr.write('Usage: hisaab --scenario <id>\n');
+if (args.includes('--scenario')) {
+  const scenarioIdx = args.indexOf('--scenario');
+  const scenarioId = args[scenarioIdx + 1];
+  if (!scenarioId || scenarioId.startsWith('-')) {
+    process.stderr.write('Usage: hisaab --scenario <id> [--json]\n');
     process.exit(2);
   }
+  const jsonMode = args.includes('--json');
 
   const scenarioPath = join(__dirname, '../../../spec/scenarios', `${scenarioId}.json`);
   let scenario: Record<string, unknown>;
@@ -50,9 +53,13 @@ if (args[0] === '--scenario') {
     process.exit(1);
   }
 
-  process.stdout.write(JSON.stringify(result.result, null, 2) + '\n');
+  if (jsonMode) {
+    process.stdout.write(JSON.stringify(toJsonPayload(result.result), null, 2) + '\n');
+  } else {
+    process.stdout.write(toHumanLines(scenarioId, result.result) + '\n');
+  }
   process.exit(0);
 }
 
-process.stderr.write('Usage: hisaab --scenario <id> | hisaab list [--status missing]\n');
+process.stderr.write('Usage: hisaab --scenario <id> [--json] | hisaab list [--status missing]\n');
 process.exit(2);
