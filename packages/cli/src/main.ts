@@ -3,18 +3,17 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { join, dirname } from 'path';
 import { quote, paise } from '@hisaab/core';
-import { listScenarios } from './list.js';
+import { listScenarios, formatListOutput } from './list.js';
 import { toJsonPayload, toHumanLines } from './format.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 
 if (args[0] === 'list') {
-  const statusFilter = args[args.indexOf('--status') + 1];
+  const statusIdx = args.indexOf('--status');
+  const statusFilter = statusIdx !== -1 ? args[statusIdx + 1] : undefined;
   const scenarios = listScenarios(statusFilter);
-  for (const s of scenarios) {
-    process.stdout.write(`${s.id}\n`);
-  }
+  process.stdout.write(formatListOutput(scenarios, statusFilter));
   process.exit(0);
 }
 

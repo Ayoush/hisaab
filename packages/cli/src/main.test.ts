@@ -4,11 +4,7 @@ import { describe, it, expect } from 'vitest';
 // Integration tests for the CLI binary require tsx or a compiled binary;
 // see packages/cli/README.md for manual testing instructions.
 
-import { fileURLToPath } from 'url';
-import { join, dirname } from 'path';
-import { writeFileSync, mkdirSync } from 'fs';
-import { tmpdir } from 'os';
-import { readFileSync } from 'fs';
+import { formatListOutput } from './list.js';
 
 describe('list scenarios', () => {
   it('filters by status when requested', () => {
@@ -22,5 +18,24 @@ describe('list scenarios', () => {
     const missing = registry.scenarios.filter((s) => s.status === 'missing');
     expect(missing).toHaveLength(1);
     expect(missing[0]?.id).toBe('b');
+  });
+});
+
+describe('formatListOutput', () => {
+  it("empty registry → 'No scenarios found.'", () => {
+    expect(formatListOutput([])).toBe('No scenarios found.\n');
+  });
+
+  it('non-empty registry → one id per line', () => {
+    expect(
+      formatListOutput([
+        { id: 'a', status: 'done' },
+        { id: 'b', status: 'missing' },
+      ]),
+    ).toBe('a\nb\n');
+  });
+
+  it('empty filter result → quoted status message', () => {
+    expect(formatListOutput([], 'missing')).toBe("No scenarios with status 'missing'.\n");
   });
 });
