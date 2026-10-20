@@ -14,3 +14,5 @@ export { loadRegistry, findByStatus } from './registry.js';
 export type { Registry, ScenarioMeta, ScenarioStatus } from './registry.js';
 export { quote } from './quote.js';
 export type { QuoteInput, QuoteResult, QuoteError } from './quote.js';
+export { createInvoice } from './invoice.js';
+export type { LineItem, InvoiceLine, Invoice, InvoiceError } from './invoice.js';
