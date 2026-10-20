@@ -17,3 +17,14 @@ export function paiseToBigDecimalString(p: Paise): string {
   const sign = p < 0 ? '-' : '';
   return `${sign}${rupees}.${cents.toString().padStart(2, '0')}`;
 }
+
+/**
+ * Convert paise to a rupee number, as GSTN JSON payloads expect.
+ * Splits with integers so the only fractional part is the two-digit
+ * remainder, never an accumulated float.
+ */
+export function paiseToRupees(p: Paise): number {
+  const sign = p < 0 ? -1 : 1;
+  const abs = Math.abs(p);
+  return sign * (Math.floor(abs / 100) + (abs % 100) / 100);
+}

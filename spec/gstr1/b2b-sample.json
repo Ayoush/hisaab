@@ -1,0 +1,66 @@
+{
+  "gstin": "27AAPFU0939F1ZV",
+  "fp": "102026",
+  "b2b": [
+    {
+      "ctin": "07AAQCB4722F1ZQ",
+      "inv": [
+        {
+          "inum": "INV-001",
+          "idt": "20-10-2026",
+          "val": 139,
+          "pos": "07",
+          "rchrg": "N",
+          "inv_typ": "R",
+          "itms": [
+            {
+              "num": 1,
+              "itm_det": { "rt": 18, "txval": 100, "iamt": 18, "camt": 0, "samt": 0, "csamt": 0 }
+            },
+            {
+              "num": 2,
+              "itm_det": { "rt": 5, "txval": 20, "iamt": 1, "camt": 0, "samt": 0, "csamt": 0 }
+            }
+          ]
+        },
+        {
+          "inum": "INV-002",
+          "idt": "21-10-2026",
+          "val": 59,
+          "pos": "07",
+          "rchrg": "N",
+          "inv_typ": "R",
+          "itms": [
+            {
+              "num": 1,
+              "itm_det": { "rt": 18, "txval": 50, "iamt": 9, "camt": 0, "samt": 0, "csamt": 0 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ctin": "27ABCDE1234F1Z5",
+      "inv": [
+        {
+          "inum": "INV-003",
+          "idt": "21-10-2026",
+          "val": 174,
+          "pos": "27",
+          "rchrg": "N",
+          "inv_typ": "R",
+          "itms": [
+            {
+              "num": 1,
+              "itm_det": { "rt": 18, "txval": 100, "iamt": 0, "camt": 9, "samt": 9, "csamt": 0 }
+            },
+            {
+              "num": 2,
+              "itm_det": { "rt": 12, "txval": 50, "iamt": 0, "camt": 3, "samt": 3, "csamt": 0 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

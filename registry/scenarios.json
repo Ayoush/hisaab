@@ -47,6 +47,18 @@
       "status": "done",
       "tier": "tests",
       "description": "28% IGST + 12% cess inter-state, tobacco"
+    },
+    {
+      "id": "multi-rate-intra",
+      "status": "partial",
+      "tier": "advanced",
+      "description": "Multi-rate intra-state invoice (18% + 12%), CLI support pending"
+    },
+    {
+      "id": "multi-rate-inter",
+      "status": "partial",
+      "tier": "advanced",
+      "description": "Multi-rate inter-state invoice (18% + 5%), CLI support pending"
     }
   ]
 }
