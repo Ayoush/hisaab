@@ -1,7 +1,7 @@
 export type ValidationError = {
   field: string;
   message: string;
-  code: 'NEGATIVE_QUANTITY' | 'INVALID_RATE';
+  code: 'NEGATIVE_QUANTITY' | 'ZERO_QUANTITY' | 'INVALID_RATE';
 };
 
 export function validateLineItem(input: {
@@ -15,6 +15,14 @@ export function validateLineItem(input: {
       field: 'quantity',
       message: `quantity must be non-negative, got ${input.quantity}`,
       code: 'NEGATIVE_QUANTITY',
+    });
+  }
+
+  if (input.quantity === 0) {
+    errors.push({
+      field: 'quantity',
+      message: `quantity must be positive, got 0`,
+      code: 'ZERO_QUANTITY',
     });
   }
 
