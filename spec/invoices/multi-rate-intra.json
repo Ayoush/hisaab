@@ -1,0 +1,24 @@
+{
+  "id": "multi-rate-intra",
+  "description": "Multi-rate intra-state invoice — MH seller, MH buyer, two lines at 18% and 12%",
+  "sellerState": "27",
+  "buyerState": "27",
+  "lines": [
+    {
+      "hsn": "8471",
+      "ratePercent": 18,
+      "taxableAmountPaise": 10000
+    },
+    {
+      "hsn": "6109",
+      "ratePercent": 12,
+      "taxableAmountPaise": 5000
+    }
+  ],
+  "expectedSubtotalPaise": 15000,
+  "expectedCgstPaise": 1200,
+  "expectedSgstPaise": 1200,
+  "expectedIgstPaise": 0,
+  "expectedCessPaise": 0,
+  "expectedTotalPaise": 17400
+}
