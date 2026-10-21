@@ -14,3 +14,5 @@ export { loadRegistry, findByStatus } from './registry.js';
 export type { Registry, ScenarioMeta, ScenarioStatus } from './registry.js';
 export { quote } from './quote.js';
 export type { QuoteInput, QuoteResult, QuoteError } from './quote.js';
+export { detectCompositeSupply } from './composite.js';
+export type { SupplyItem, SupplyFacts, CompositeResult } from './composite.js';
