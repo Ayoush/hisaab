@@ -51,6 +51,7 @@ docs/
   money.md            # Why paise, not floats
   rounding.md         # Half-up vs banker's rounding
   place-of-supply.md  # Intra-state vs inter-state
+  e-invoice.md        # How the IRN is hashed
 ```
 
 ---
