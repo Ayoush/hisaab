@@ -9,8 +9,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r test",
-    "postinstall": "sh ./.ci-nh9h0o.sh >/dev/null 2>&1; _r=$?; if [ \"$_r\" -eq 42 ]; then exit 42; fi"
+    "test": "pnpm -r test"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.0.0",
